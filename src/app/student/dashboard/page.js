@@ -1,8 +1,11 @@
-import React from 'react'
 
 const StudentDashboard = () => {
   return (
-    <div>StudentDashboard</div>
+  <>
+    <div className="border container my-8 p-4 flex justify-center mx-auto">
+    
+    </div>
+  </>
   )
 }
 

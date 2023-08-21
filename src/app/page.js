@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "./components/ButtonComponent/Button";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -11,7 +12,7 @@ export default function Home() {
             <h2 className="text-4xl font-bold border leading-normal uppercase select-none">Manage your <span className="bg-gradient-to-r from-[#007cf0] text-transparent bg-clip-text font-extrabold to-[#00dfd8]">University</span> Academics at <span className="bg-gradient-to-r from-[#7928ca] text-transparent bg-clip-text font-extrabold to-[#ff0080]">ONE PLACE</span> </h2>
             <p className="text-sm font-normal border leading-normal select-none">Seamlessly manage campus operations, nurture innovation, and cultivate a vibrant academic community through our advanced University Management System.</p>
             <div className="mt-6">
-              <Button type="button" className="getBtn select-none">Get Started</Button>
+            <Link href="/student"><Button type="button" className="getBtn select-none">Get Started</Button></Link>
             </div>
           </div>
           <div className="flex flex-col justify-center items-center gap-y-3 border">

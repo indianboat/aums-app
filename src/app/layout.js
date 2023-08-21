@@ -1,12 +1,17 @@
+import { Suspense } from "react";
 import Footer from "./components/FooterComponent/Footer";
 import Navbar from "./components/NavbarComponent/Navbar";
 import { Provider } from "./components/ThemeProvider/Provider";
 import "./globals.scss";
 import { Poppins } from "next/font/google";
+import Loading from "./loading";
+import NextTopLoader from "nextjs-toploader";
 
-const poppins = Poppins({ subsets: ["latin"], weight:[
-  "100", "200", "300", "400", "500", "600", "700", "800", "900"
-] });
+const poppins = Poppins({
+  subsets: ["latin"], weight: [
+    "100", "200", "300", "400", "500", "600", "700", "800", "900"
+  ]
+});
 
 export const metadata = {
   title: "University Management App",
@@ -17,10 +22,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={poppins.className}>
+        <NextTopLoader
+          showSpinner={false}
+          color="currentColor"
+          height={4}
+          crawl={true}
+          shadow="0 0 10px currentColor,0 0 5px currentColor"
+        />
         <Provider>
-          <Navbar />
-          {children}
-          <Footer/>
+          <Suspense fallback={<Loading />}>
+            <Navbar />
+            {children}
+            <Footer />
+          </Suspense>
         </Provider>
       </body>
     </html>
