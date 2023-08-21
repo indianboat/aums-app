@@ -117,14 +117,14 @@ const Navbar = () => {
                 <ul className="border flex flex-col gap-3 w-full">
                   <li className="border flex"><Link onClick={handleLinkClick} href="/admin" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><RxDashboard/> Dashboard</Link></li>
                   <li className="border flex">
-                    <Collapse list={studentList} children="Student" icon={<PiStudent />} onClick={handleLinkClick}/>
+                    <Collapse list={studentList} children="Student" icon={[<PiStudent/>]} onClick={handleLinkClick}/>
                   </li>
 
                   <li className="border flex">
-                    <Collapse list={facultyList} children="Faculty" icon={<LiaChalkboardTeacherSolid />} onClick={handleLinkClick}/>
+                    <Collapse list={facultyList} children="Faculty" icon={[<LiaChalkboardTeacherSolid/>]} onClick={handleLinkClick}/>
                   </li>
                   <li className="border flex">
-                    <Collapse list={courseList} children="Course" icon={<TbPlaylistAdd />} onClick={handleLinkClick}/>
+                    <Collapse list={courseList} children="Course" icon={[<TbPlaylistAdd/>]} onClick={handleLinkClick}/>
                   </li>
                   <li className="border flex"><Button className="border text-[#696E76] dark:text-neutral-300 hover:text-white dark:hover:text-white hover:bg-danger dark:hover:bg-rose-900 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><IoIosLogOut /> Logout</Button></li>
                 </ul>
