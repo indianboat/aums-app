@@ -5,7 +5,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
-const Collapse = ({children, list=[], onClick, icon}) => {
+
+const Collapse = ({children, list=[], onClick}) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -16,7 +17,7 @@ const Collapse = ({children, list=[], onClick, icon}) => {
   return (
   <>
   <div className="w-full">
-    <button onClick={toggleCollapse} className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex justify-between items-center gap-x-4 w-full px-4 py-2 rounded-lg"><span className="flex gap-x-4 items-center"> <span>{icon[0]}</span>  {children}</span> {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</button>
+    <button onClick={toggleCollapse} className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex justify-between items-center gap-x-4 w-full px-4 py-2 rounded-lg"><span className="flex gap-x-4 items-center">{children}</span> {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</button>
     <AnimatePresence>
       {
         isOpen && (
