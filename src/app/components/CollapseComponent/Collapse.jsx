@@ -34,7 +34,7 @@ const Collapse = ({children, list=[], onClick}) => {
                   list.map((item, index)=>{
                     return (
                      <li key={index} className="flex w-full">
-                        <Link className="text-sm font-normal hover:text-primary px-8 py-1" href={`admin/student/${item.link}`} onClick={onClick}>{item.name}</Link>
+                        <Link className="text-sm font-normal hover:text-primary px-8 py-1" href={`${item.link}`} onClick={onClick}>{item.name}</Link>
                       </li>
                     )
                   })

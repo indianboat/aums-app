@@ -1,9 +1,9 @@
 "use client";
 
-const Spinner = () => {
+const Spinner = ({className=""}) => {
   return (
   <>
-    <div className="spinner-box w-10 h-10">
+    <div className={`spinner-box ${className}`}>
       <span className='spinner-circle1'></span>
       <span className='spinner-circle2'></span>
     </div>
@@ -11,4 +11,4 @@ const Spinner = () => {
   )
 }
 
-export default Spinner
+export default Spinner;

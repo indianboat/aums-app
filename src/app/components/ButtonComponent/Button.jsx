@@ -1,6 +1,6 @@
 "use client";
 
-const Button = ({ children="Button", type="button", className }) => {
+const Button = ({ children="Button", type="button", className, ...rest }) => {
 
   const handleClick = (event) => {
 
@@ -29,6 +29,7 @@ const Button = ({ children="Button", type="button", className }) => {
       onClick={handleClick}
       type={type}
       className={`btn ${className}`}
+      {...rest}
     >
       {children}
     </button>

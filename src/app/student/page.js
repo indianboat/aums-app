@@ -7,8 +7,14 @@ import { CiLock } from "react-icons/ci";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const StudentLogin = () => {
+
+  const {push} = useRouter();
+  const { data: session, status } = useSession();
+  console.log(session);
 
   const formik = useFormik({
     initialValues: {
@@ -22,6 +28,9 @@ const StudentLogin = () => {
     // api calling here for login
   }
 
+  if(status === "authenticated"){
+    push("student/dashboard")
+  }
 
   return (
     <>

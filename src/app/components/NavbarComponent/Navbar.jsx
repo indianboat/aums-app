@@ -12,6 +12,7 @@ import {TbPlaylistAdd} from "react-icons/tb";
 import {IoIosLogOut} from "react-icons/io";
 import Collapse from "../CollapseComponent/Collapse";
 import Button from "../ButtonComponent/Button";
+import { signOut } from 'next-auth/react';
 
 const Navbar = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -28,22 +29,22 @@ const Navbar = () => {
   const studentList =[
     {
       name:"Add New",
-      link:"add-student"
+      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/student/add-student`
     },
     {
       name:"Manage",
-      link:"manage-student"
+      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/student/manage-student`
     }
   ];
 
   const facultyList =[
     {
       name:"Add New",
-      link:"add-faculty"
+      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/faculty/add-faculty`
     },
     {
       name:"Manage",
-      link:"manage-faculty"
+      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/faculty/manage-faculty`
     }
   ];
 
@@ -64,6 +65,10 @@ const Navbar = () => {
       drawerHandler();
     }
   };
+
+  async function handleSignout() {
+    signOut();
+  }
 
   return (
     <>
@@ -132,7 +137,7 @@ const Navbar = () => {
                       <TbPlaylistAdd/> Course
                     </Collapse>
                   </li>
-                  <li className="border flex"><Button className="border text-[#696E76] dark:text-neutral-300 hover:text-white dark:hover:text-white hover:bg-danger dark:hover:bg-rose-900 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><IoIosLogOut /> Logout</Button></li>
+                  <li className="border flex"><Button onClick={handleSignout} className="border text-[#696E76] dark:text-neutral-300 hover:text-white dark:hover:text-white hover:bg-danger dark:hover:bg-rose-900 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><IoIosLogOut /> Logout</Button></li>
                 </ul>
                 </div>
               </motion.div>

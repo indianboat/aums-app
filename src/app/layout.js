@@ -1,11 +1,10 @@
-import { Suspense } from "react";
 import Footer from "./components/FooterComponent/Footer";
 import Navbar from "./components/NavbarComponent/Navbar";
 import { Provider } from "./components/ThemeProvider/Provider";
 import "./globals.scss";
 import { Poppins } from "next/font/google";
-import Loading from "./loading";
 import NextTopLoader from "nextjs-toploader";
+import NextAuthSessionProvider from "./components/SessionProvider/NextAuthSessionProvider";
 
 const poppins = Poppins({
   subsets: ["latin"], weight: [
@@ -30,11 +29,11 @@ export default function RootLayout({ children }) {
           shadow="0 0 10px currentColor,0 0 5px currentColor"
         />
         <Provider>
-          <Suspense fallback={<Loading />}>
+          <NextAuthSessionProvider>
             <Navbar />
             {children}
             <Footer />
-          </Suspense>
+          </NextAuthSessionProvider>
         </Provider>
       </body>
     </html>
