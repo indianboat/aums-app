@@ -7,22 +7,28 @@ import { CiLock } from "react-icons/ci";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
-import Link from "next/link";
 import Spinner from "@/app/components/SpinnerComponent/Spinner";
 import { useEffect, useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Loading from "../components/LoadingComponent/Loading";
 
 const AdminLogin = () => {
 
   const router = useRouter();
   const [ loading, setLoading ] = useState(false);
-  const { data:session, status } = useSession();
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/admin/dashboard'); // Redirect after rendering
+    }
+  }, [status, router]);
 
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: ""
+      password: "",
+      role:"admin"
     },
     onSubmit
   });
@@ -33,10 +39,9 @@ const AdminLogin = () => {
       redirect: false,
       email: values.email,
       password: values.password,
+      role:values.role,
       callbackUrl: "/admin/dashboard"
     });
-
-    console.log(res);
 
     if (res.error == null) {
       setLoading(false);
@@ -49,12 +54,6 @@ const AdminLogin = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/admin/dashboard'); // Redirect after rendering
-    }
-  }, [status, router]);
 
   if (status === "loading") {
     return <Loading />;

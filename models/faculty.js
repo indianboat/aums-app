@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const facultySchema = new mongoose.Schema({
   name:String,
   email:{type:String, unique:true, required:true},
   mobile:String,
   password:String,
-  role:{type:String, enum:["student", "faculty", "admin"], default:null},
+  role:{type:String, default:"faculty"},
   isActive:{type:Boolean, default:false}
 }, { timestamps: true });
 
 mongoose.models = {};
-const User = mongoose.model("users", userSchema);
+const Faculty = mongoose.model("faculties", facultySchema);
 
-export default User;
+export default Faculty;

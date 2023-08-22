@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { PiMoonFill, PiSunFill } from "react-icons/pi";
 import { TbSunFilled } from "react-icons/tb";
 import Skeleton from "../Skeleton";
+import Loading from "../LoadingComponent/Loading";
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
@@ -16,6 +17,7 @@ const ThemeSwitch = () => {
 
   return (
     <>
+      {mounted == true ? null : <Loading/> }
       <div className="flex items-center h-full justify-center">
         {mounted == false ? (
           <Skeleton width="28px" height="28px" circle />

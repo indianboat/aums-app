@@ -144,7 +144,6 @@ body {
   display: flex;
   position: relative;
   padding: 10px 13px;
-  background: rgb(234, 238, 240);
   border-radius: 12px;
   opacity: 1;
   transition: all 0.2s ease-in-out;
@@ -157,10 +156,6 @@ body {
 
 .input:focus ~ .icon_span {
   transform: translateX(6px) translateY(-6px);
-}
-
-[class="dark"] .input {
-  background: #141417;
 }
 
 .input:focus {

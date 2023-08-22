@@ -1,8 +1,11 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "../../../../../middleware/db";
-import User from "../../../../../models/users";
+import User from "../../../../../models/student";
 import argon2i from "argon2";
+import Admin from "../../../../../models/admin";
+import Student from "../../../../../models/student";
+import Faculty from "../../../../../models/faculty";
 
 export const authOptions = {
   providers: [
@@ -12,19 +15,46 @@ export const authOptions = {
         await connectDB();
 
         const { email, password } = credentials;
-
-        const userExist = await User.findOne({ email });
-
-        if (!userExist) {
-          throw new Error("Unauthorized Access !");
+        console.log(credentials);
+        if(credentials.role === "admin"){
+          const adminUserExist = await Admin.findOne({ email });
+          if (!adminUserExist) {
+            throw new Error("Unauthorized Access !");
+          }
+  
+          const matchPassword = await argon2i.verify(adminUserExist.password, password);
+  
+          if (!matchPassword || adminUserExist.email !== email) {
+            throw new Error("Invalid Credentials");
+          }
+          return adminUserExist;
         }
-
-        const matchPassword = await argon2i.verify(userExist.password, password);
-
-        if (!matchPassword || userExist.email !== email) {
-          throw new Error("Invalid Credentials");
+        else if(credentials.role === "student"){
+          const studentExist = await Student.findOne({ email });
+          if (!studentExist) {
+            throw new Error("Unauthorized Access !");
+          }
+  
+          const matchPassword = await argon2i.verify(studentExist.password, password);
+  
+          if (!matchPassword || studentExist.email !== email) {
+            throw new Error("Invalid Credentials");
+          }
+          return studentExist;
         }
-        return userExist;
+        else if(credentials.role==="faculty"){
+          const facultyExist = await Faculty.findOne({ email });
+          if (!facultyExist) {
+            throw new Error("Unauthorized Access !");
+          }
+  
+          const matchPassword = await argon2i.verify(facultyExist.password, password);
+  
+          if (!matchPassword || facultyExist.email !== email) {
+            throw new Error("Invalid Credentials");
+          }
+          return facultyExist;
+        }
       }
     }),
   ],

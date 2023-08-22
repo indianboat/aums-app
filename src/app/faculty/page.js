@@ -7,23 +7,58 @@ import {CiLock} from "react-icons/ci";
 import { useFormik } from "formik";
 import toast, {Toaster} from "react-hot-toast";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Loading from "../components/LoadingComponent/Loading";
+import { signIn, useSession } from "next-auth/react";
+import Spinner from "../components/SpinnerComponent/Spinner";
 
 const FacultyLogin = () => {
 
+  const {push} = useRouter();
+  const [ loading, setLoading ] = useState(false);
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      push('/faculty/dashboard'); // Redirect after rendering
+    }
+  }, [status, push]);
 
   const formik = useFormik({
     initialValues:{
       email:"",
-      password:""
+      password:"",
+      role:"faculty"
     },
     onSubmit
   });
 
-  async function onSubmit(values){
-    // api calling here for login
+  async function onSubmit(values){ // api not working ------->>
+    setLoading(true);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+      role:values.role,
+      callbackUrl: "/faculty/dashboard"
+    });
+
+    if (res.error == null) {
+      setLoading(false);
+      toast.success("Login success, redirecting...");
+      push("/faculty/dashboard");
+    }
+
+    else {
+      toast.error(res.error, { duration: 2500 });
+      setLoading(false);
+    }
   }
 
-
+  if (status === "loading") {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -36,7 +71,7 @@ const FacultyLogin = () => {
 
           <Input minLength={8} icon={<CiLock size={20}/>} type="password" className="w-full" label="Faculty Password" id="password" name="password" placeholder="Faculty Password" {...formik.getFieldProps("password")} required />
 
-          <Button type="submit" className="bg-neutral-950 my-4 w-full shadow-dark-btn">Login</Button>
+          <Button type="submit" disabled={loading ? true : false} className="bg-neutral-950 my-8 w-full disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-x-2 shadow-dark-btn">{loading ? <Spinner /> : "Login"}</Button>
           <p className="flex w-full text-gray-600 dark:text-gray-400 text-sm justify-center mt-8 gap-x-2">For student login <Link className="text-blue-500 underline" href="/student">Login</Link></p>
         </form>
 

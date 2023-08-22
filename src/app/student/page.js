@@ -7,29 +7,58 @@ import { CiLock } from "react-icons/ci";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Loading from "../components/LoadingComponent/Loading";
+import Spinner from "../components/SpinnerComponent/Spinner";
 
 const StudentLogin = () => {
 
   const {push} = useRouter();
-  const { data: session, status } = useSession();
-  console.log(session);
+  const [ loading, setLoading ] = useState(false);
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      push('/student/dashboard'); // Redirect after rendering
+    }
+  }, [status, push]);
 
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: ""
+      password: "",
+      role:"student"
     },
     onSubmit
   });
 
   async function onSubmit(values) {
+    setLoading(true);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+      role:values.role,
+      callbackUrl: "/student/dashboard"
+    });
     // api calling here for login
+
+    if (res.error == null) {
+      setLoading(false);
+      toast.success("Login success, redirecting...");
+      push("/student/dashboard");
+    }
+
+    else {
+      toast.error(res.error, { duration: 2500 });
+      setLoading(false);
+    }
   }
 
-  if(status === "authenticated"){
-    push("student/dashboard")
+  if (status === "loading") {
+    return <Loading />;
   }
 
   return (
@@ -43,7 +72,7 @@ const StudentLogin = () => {
 
           <Input minLength={8} icon={<CiLock size={20} />} type="password" className="w-full" label="Password" id="password" name="password" placeholder="Password" {...formik.getFieldProps("password")} required />
 
-          <Button type="submit" className="bg-neutral-950 my-4 w-full shadow-dark-btn">Login</Button>
+          <Button type="submit" disabled={loading ? true : false} className="bg-neutral-950 my-8 w-full disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-x-2 shadow-dark-btn">{loading ? <Spinner /> : "Login"}</Button>
           <p className="flex w-full text-gray-600 dark:text-gray-400 text-sm justify-center mt-8 gap-x-2">For faculty login <Link className="text-blue-500 underline" href="/faculty">Login</Link></p>
         </form>
       </div>
