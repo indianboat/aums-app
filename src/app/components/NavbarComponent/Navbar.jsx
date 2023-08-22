@@ -54,7 +54,7 @@ const Navbar = () => {
               </button>
               <Link href={"/"} className="text-2xl font-bold">UMS</Link>
             </div>
-            <div className="flex items-center justify-between gap-6 border">
+            <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
             <Link href={"/"} className="text-md font-medium">Home</Link>
             <Link href={"/admin"} className="text-md font-medium">Admin</Link>
             <Link href={"/faculty"} className="text-md font-medium">Faculty</Link>
