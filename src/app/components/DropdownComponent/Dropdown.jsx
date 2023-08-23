@@ -8,7 +8,7 @@ import Link from 'next/link';
 import ButtonGroup from '../ButtonComponent/ButtonGroup';
 
 
-const Dropdown = ({ handleSignout }) => {
+const Dropdown = ({ handleSignout, userName, profileLink}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -57,13 +57,13 @@ const Dropdown = ({ handleSignout }) => {
 
               <div className="flex flex-col p-2 rounded-lg gap-y-1 dark:bg-neutral-950 bg-slate-100">
                 <span className='text-[12px] font-normal uppercase text-gray-400'>welcome</span>
-                <h1 className='text-sm uppercase'>Pankaj Kushwaha</h1>
+                <h1 className='text-sm uppercase'>{userName}</h1>
               </div>
               <div className="flex flex-col p-2 rounded-lg gap-y-1 dark:bg-neutral-950 bg-slate-100">
                 <span className='text-[12px] font-normal uppercase text-gray-400'>Theme</span>
                 <ButtonGroup className="flex flex-row rounded-full justify-center items-center" />
               </div>
-              <Link href="#" role="menuitem" onClick={closeDropdown} className='bg-slate-100 dark:bg-neutral-950 font-medium text-sm uppercase py-2 px-4 rounded-lg hover:bg-neutral-200 text-gray-900 dark:text-gray-300'>Profile</Link>
+              <Link href={profileLink} role="menuitem" onClick={closeDropdown} className='bg-slate-100 dark:bg-neutral-950 font-medium text-sm uppercase py-2 px-4 rounded-lg hover:bg-neutral-200 text-gray-900 dark:text-gray-300'>Profile</Link>
 
               <Button
                 className="text-left bg-rose-100 dark:bg-neutral-950 dark:hover:bg-rose-700 font-medium rounded-lg py-2 px-4 text-sm uppercase text-danger hover:bg-rose-600 hover:text-rose-200"

@@ -64,7 +64,7 @@ const Navbar = () => {
             
 
             <div className="flex items-center h-full gap-x-2">
-              {session && <Dropdown handleSignout={handleSignout} />}
+              {session && <Dropdown handleSignout={handleSignout} profileLink={!session? null : session?.user?.role === "admin" ? "/admin/profile" : session?.user?.role === "student" ? "/student/profile" : "/faculty/profile" } userName={!session ? "user_name" : session?.user?.name} />}
             </div>
           </div>
         </div>

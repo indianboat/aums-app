@@ -14,11 +14,11 @@ const FacultyDrawer = ({handleLinkClick, handleSignout}) => {
   const resultUploadList = [
     {
       name:"Upload",
-      link:"/faculty/result-upload"
+      link:"/faculty/result/upload"
     },
     {
       name:"Manage",
-      link:"/faculty/result-manage"
+      link:"/faculty/result/manage"
     },
   ];
 

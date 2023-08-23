@@ -24,18 +24,18 @@ const StudentDrawer = ({handleLinkClick, handleSignout}) => {
     },
     {
       name:"All Semester Result",
-      link:"/student/semester-result"
+      link:"/student/all-semester-result"
     }
   ];
 
   const courseList = [
     {
       name:"Registration",
-      link:"student/course/registration"
+      link:"/student/course/registration"
     },
     {
       name:"Tracking",
-      link:"student/course/registration-tracking"
+      link:"/student/course/registration-tracking"
     },
   ]
 
@@ -55,9 +55,9 @@ const StudentDrawer = ({handleLinkClick, handleSignout}) => {
               <TbPlaylistAdd /> Course
             </Collapse>
           </li>
-          <li className="border flex"><Link onClick={handleLinkClick} href="/student/fees" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><BsCreditCard2Front /> Fees payment</Link></li>
-          <li className="border flex"><Link onClick={handleLinkClick} href="/student/fees" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><PiUserList/> Profile</Link></li>
-          <li className="border flex"><Link onClick={handleLinkClick} href="/student/fees" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><CiSettings/> Setting</Link></li>
+          <li className="border flex"><Link onClick={handleLinkClick} href="/student/fees-payment" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><BsCreditCard2Front /> Fees payment</Link></li>
+          <li className="border flex"><Link onClick={handleLinkClick} href="/student/profile" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><PiUserList/> Profile</Link></li>
+          <li className="border flex"><Link onClick={handleLinkClick} href="/student/setting" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><CiSettings/> Setting</Link></li>
           <li className="border flex"><Button onClick={handleSignout} className="border text-danger dark:text-danger hover:text-white dark:hover:text-white hover:bg-danger dark:hover:bg-rose-900 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><IoIosLogOut /> Logout</Button></li>
         </ul>
       </div>

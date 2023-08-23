@@ -35,18 +35,16 @@ const AdminDrawer = ({handleLinkClick, handleSignout}) => {
     }
   ];
 
-  const courseList =[
+  const courseList = [
     {
       name:"Add New",
-      link:"add-course"
+      link:"/admin/course/add-course"
     },
     {
       name:"Manage",
-      link:"manage-course"
+      link:"/admin/course/manage-course"
     }
   ];
-
-
 
   return (
     <>
