@@ -284,9 +284,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  border: 4px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-  border-radius: 9999px;
   background-color: #AAAAAA;
-  border-radius: 6px; /* Rounded corners on the thumb */
 }
