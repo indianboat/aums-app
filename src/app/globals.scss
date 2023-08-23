@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.border{
-  border: none;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -19,9 +15,9 @@ body {
   flex-direction: column;
 }
 
-/* .border{
+.border{
   border: 0;
-} */
+}
 
 /* primary:#1A5CFF*/
 /* success:#46C93A */
@@ -205,13 +201,13 @@ body {
   border-left-color: transparent;
   border-right-color: transparent;
   border-bottom-color: currentColor;
-  border-style:solid;
+  border-style: solid;
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 100%;
   z-index: 1;
-  animation: solidSpinner 0.8s ease infinite ;
+  animation: solidSpinner 0.8s ease infinite;
 }
 .spinner-circle2 {
   border: 4px;
@@ -219,7 +215,7 @@ body {
   border-left-color: transparent;
   border-right-color: transparent;
   border-bottom-color: currentColor;
-  border-style:dotted;
+  border-style: dotted;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -242,4 +238,55 @@ body {
   to {
     transform: rotate(1turn);
   }
+}
+
+//SWITCH component
+
+.switch {
+  width: 40px;
+  // height: 18px;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 50px;
+  padding: 12px 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.switch[data-isOn="true"] {
+  justify-content: flex-end;
+}
+
+.handle {
+  position: absolute;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50px;
+}  
+
+
+// custom scroll bar
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  max-width: 12px; /* Set a maximum width to prevent width increase */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #757575;
+  border-radius: 6px; /* Rounded corners on the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #AAAAAA;
+  border-radius: 6px; /* Rounded corners on the thumb */
 }

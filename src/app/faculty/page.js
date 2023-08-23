@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import toast, {Toaster} from "react-hot-toast";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Loading from "../components/LoadingComponent/Loading";
 import { signIn, useSession } from "next-auth/react";
 import Spinner from "../components/SpinnerComponent/Spinner";
@@ -47,7 +47,7 @@ const FacultyLogin = () => {
     if (res.error == null) {
       setLoading(false);
       toast.success("Login success, redirecting...");
-      push("/faculty/dashboard");
+      redirect("/faculty/dashboard");
     }
 
     else {

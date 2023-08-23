@@ -1,6 +1,6 @@
 "use client";
 
-const Button = ({ children="Button", type="button", className, ...rest }) => {
+const Button = ({ children, type="button", className, ...rest }) => {
 
   const handleClick = (event) => {
 

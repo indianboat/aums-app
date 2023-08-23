@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import Spinner from "@/app/components/SpinnerComponent/Spinner";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Loading from "../components/LoadingComponent/Loading";
 
 const AdminLogin = () => {
@@ -46,7 +46,7 @@ const AdminLogin = () => {
     if (res.error == null) {
       setLoading(false);
       toast.success("Login success, redirecting...");
-      router.push("/admin/dashboard");
+      redirect("/admin/dashboard");
     }
 
     else {

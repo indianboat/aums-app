@@ -2,13 +2,12 @@
 
 import Loading from "@/app/components/LoadingComponent/Loading";
 import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 
 const StudentDashboard = () => {
 
-  const router = useRouter();
-  const { data: session, status } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() { 
       redirect("/student");
