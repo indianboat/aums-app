@@ -16,22 +16,22 @@ const AdminDrawer = ({handleLinkClick, handleSignout}) => {
   const studentList =[
     {
       name:"Add New",
-      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/student/add-student`
+      link:"/admin/student/add-student"
     },
     {
       name:"Manage",
-      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/student/manage-student`
+      link:"/admin/student/manage-student"
     }
   ];
 
   const facultyList =[
     {
       name:"Add New",
-      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/faculty/add-faculty`
+      link:"/admin/faculty/add-faculty"
     },
     {
       name:"Manage",
-      link:`${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.PROD_URL}/admin/faculty/manage-faculty`
+      link:"/admin/faculty/manage-faculty"
     }
   ];
 
