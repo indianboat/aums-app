@@ -4,17 +4,9 @@ import { PiEye } from "react-icons/pi";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import Link from 'next/link';
 import Button from '@/app/components/ButtonComponent/Button';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const StudentDisplay = ({ students }) => {
-
-  const data = [
-    { id: 1, name: 'John Doe', age: 30, location: 'New York' },
-    { id: 2, name: 'Jane Smith', age: 25, location: 'Los Angeles' },
-    // Add more data here
-  ];
-
 
   return (
     <>
