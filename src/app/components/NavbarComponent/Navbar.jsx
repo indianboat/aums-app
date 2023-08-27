@@ -47,10 +47,10 @@ const Navbar = () => {
           <div className="border flex items-center justify-between">
             <div className="flex items-center justify-between gap-6 border">
               <button
-                className="p-[8px] rounded-xl bg-[#F2F2F2] dark:bg-[#16181A] shadow-lg duration-[0.3s] transition-all relative hover:shadow-none hover:translate-y-[1px]"
+                className="p-[8px] rounded-xl bg-[#F2F2F2] dark:bg-[#16181A] shadow-lg duration-[0.3s] transition-all relative hover:shadow-none hover:translate-y-[1px] lg:hidden md:flex sm:flex flex"
                 onClick={drawerHandler}
               >
-                <LuMenu size={20} className="text-[#2C3E50] dark:text-white" />
+                <LuMenu size={20} className="text-[#2C3E50] dark:text-white" /> 
               </button>
               <Link href={"/"} className="text-2xl font-bold">UMS</Link>
             </div>
@@ -62,7 +62,6 @@ const Navbar = () => {
               <Link href={"/student"} className="text-md font-medium">Student</Link>
             </div>}
             
-
             <div className="flex items-center h-full gap-x-2">
               {session && <Dropdown handleSignout={handleSignout} profileLink={!session? null : session?.user?.role === "admin" ? "/admin/profile" : session?.user?.role === "student" ? "/student/profile" : "/faculty/profile" } userName={!session ? "user_name" : session?.user?.name} />}
             </div>

@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <Provider>
           <NextAuthSessionProvider>
             <Navbar />
-            {children}
+              {children}
             <Footer />
           </NextAuthSessionProvider>
         </Provider>

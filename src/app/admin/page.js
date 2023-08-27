@@ -15,8 +15,8 @@ import Loading from "../components/LoadingComponent/Loading";
 const AdminLogin = () => {
 
   const router = useRouter();
-  const [ loading, setLoading ] = useState(false);
-  const { status } = useSession();
+  const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -28,7 +28,7 @@ const AdminLogin = () => {
     initialValues: {
       email: "",
       password: "",
-      role:"admin"
+      role: "admin"
     },
     onSubmit
   });
@@ -39,7 +39,7 @@ const AdminLogin = () => {
       redirect: false,
       email: values.email,
       password: values.password,
-      role:values.role,
+      role: values.role,
       callbackUrl: "/admin/dashboard"
     });
 
@@ -61,19 +61,23 @@ const AdminLogin = () => {
 
   return (
     <>
-      <Toaster toastOptions={{ duration: 2500 }} />
-      <div className="container mx-auto my-6 flex flex-col items-center justify-center p-1">
-        <form method="POST" onSubmit={formik.handleSubmit} className="shadow-xl lg:p-12 md:p-10 sm:p-8 p-4 rounded-3xl lg:w-3/6 md:w-4/6 sm:w-full w-full">
-          <legend className="mt-2 mb-6 text-gray-800 dark:text-gray-200 text-center font-bold text-3xl">Sign in as Admin</legend>
+      {
+        session ? router.push("/admin/dashboard") :
+          <>
+            <Toaster toastOptions={{ duration: 2500 }} />
+            <div className="container mx-auto my-6 flex flex-col items-center justify-center p-1">
+              <form method="POST" onSubmit={formik.handleSubmit} className="shadow-xl lg:p-12 md:p-10 sm:p-8 p-4 rounded-3xl lg:w-3/6 md:w-4/6 sm:w-full w-full">
+                <legend className="mt-2 mb-6 text-gray-800 dark:text-gray-200 text-center font-bold text-3xl">Sign in as Admin</legend>
 
-          <Input icon={<HiOutlineMail strokeWidth={1} size={20} />} type="email" className="w-full" label="Email Id" id="email" name="email" placeholder="Email Id" {...formik.getFieldProps("email")} required />
+                <Input icon={<HiOutlineMail strokeWidth={1} size={20} />} type="email" className="w-full mb-4" label="Email Id" id="email" name="email" placeholder="Email Id" {...formik.getFieldProps("email")} required />
 
-          <Input minLength={8} icon={<CiLock size={20} />} type="password" className="w-full" label="Password" id="password" name="password" placeholder="Password" {...formik.getFieldProps("password")} required />
+                <Input minLength={8} icon={<CiLock size={20} />} type="password" className="w-full mb-4" label="Password" id="password" name="password" placeholder="Password" {...formik.getFieldProps("password")} required />
 
-          <Button type="submit" disabled={loading ? true : false} className="bg-neutral-950 my-8 w-full disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-x-2 shadow-dark-btn">{loading ? <Spinner /> : "Login"}</Button>
-        </form>
-
-      </div>
+                <Button type="submit" disabled={loading ? true : false} className="bg-neutral-950 my-8 w-full disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-x-2 shadow-dark-btn">{loading ? <Spinner /> : "Login"}</Button>
+              </form>
+            </div>
+          </>
+      }
     </>
   )
 }

@@ -13,9 +13,7 @@ export const authOptions = {
       name: "Credentials",
       async authorize(credentials) {
         await connectDB();
-
         const { email, password } = credentials;
-        console.log(credentials);
         if(credentials.role === "admin"){
           const adminUserExist = await Admin.findOne({ email });
           if (!adminUserExist) {
@@ -83,7 +81,8 @@ export const authOptions = {
     }
   },
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    expires:30 * 60 * 1000
   },
   theme: {
     colorScheme: "light",
