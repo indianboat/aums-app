@@ -1,9 +1,8 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Loading from "../../components/LoadingComponent/Loading";
 import { redirect } from "next/navigation";
-import AdminDrawer from "@/app/components/NavbarComponent/AdminDrawer";
 
 const AdminDashboard = () => {
 
@@ -13,10 +12,6 @@ const AdminDashboard = () => {
       redirect("/admin")
     }
   });
-
-  async function handleSignout() {
-    signOut();
-  }
 
   if (status === "loading") {
     return <Loading />

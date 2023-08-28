@@ -1,4 +1,10 @@
 export default async function getStudents() {
-  const res = await fetch('https://aums.vercel.app/api/admin/student', { cache:"force-cache" })
+  const res = await fetch("https://aums.vercel.app/api/students", { cache:"force-cache" });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  
   return res.json();
 }
