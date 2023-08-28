@@ -1,5 +1,4 @@
 import Input from '@/app/components/InputComponent/Input';
-import React from 'react';
 import getStudents from '@/app/utils/getStudents';
 import StudentDisplay from '../../components/StudentDisplay';
 
@@ -15,7 +14,6 @@ const AdminManageStudent = async () => {
       <div className="border mt-4 flex items-center">
         <Input type='text' className="lg:w-96 md:w-80 sm:w-full w-full" placeholder="search students..." label="Enter student name" />
       </div>
-
 
       {/* Student TABLE displaying */}
       <div className="mt-6">
