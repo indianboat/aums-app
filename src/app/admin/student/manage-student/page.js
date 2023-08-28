@@ -1,10 +1,10 @@
 import Input from '@/app/components/InputComponent/Input';
-// import getStudents from '@/app/utils/getStudents';
-// import StudentDisplay from '@/app/components/AdminComponents/StudentDisplay';
+import getStudents from '@/app/utils/getStudents';
+import StudentDisplay from '@/app/components/AdminComponents/StudentDisplay';
 
-const AdminManageStudent = () => {
+const AdminManageStudent = async () => {
 
-  // const students = await getStudents();
+  const students = await getStudents();
 
   return (
     <>
@@ -17,7 +17,7 @@ const AdminManageStudent = () => {
 
       {/* Student TABLE displaying */}
       <div className="mt-6">
-        {/* <StudentDisplay students={students}/> */}
+        <StudentDisplay students={students}/>
       </div>
     </>
   )
