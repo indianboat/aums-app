@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
-  name:String,
+  fname:String,
+  lname:String,
   enrol_num:String,
   email:{type:String, unique:true, required:true},
   mobile:String,

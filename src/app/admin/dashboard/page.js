@@ -3,22 +3,30 @@
 import { useSession } from "next-auth/react";
 import Loading from "../../components/LoadingComponent/Loading";
 import { redirect } from "next/navigation";
+import AdminDrawer from "@/app/components/NavbarComponent/AdminDrawer";
+
 
 const AdminDashboard = () => {
-
+ 
   const { status } = useSession({
     required: true,
-    onUnauthenticated() {
-      redirect("/admin")
+    onUnauthenticated() { 
+      redirect("/admin");
     }
   });
 
+
   if (status === "loading") {
-    return <Loading />
+    return (<Loading />);
   }
 
   return (
     <>
+     <div className="2xl:container mx-auto flex flex-row w-full h-auto border">
+      <aside className="lg:w-64 md:w-60 sm:w-52 w-48 z-40 lg:flex md:hidden sm:hidden hidden">
+        <AdminDrawer />
+      </aside>
+      <section className="2xl:container mx-auto border border-rose-800 w-full p-6 rounded-2xl shadow-lg">
       <div className="border">
         <h1 className="text-md mb-4 text-neutral-700 dark:text-neutral-300 font-bold">Overview</h1>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-8">
@@ -52,6 +60,9 @@ const AdminDashboard = () => {
           No ticket here !
         </div>
       </div>
+      </section>
+    </div>
+     
     </>
   )
 }

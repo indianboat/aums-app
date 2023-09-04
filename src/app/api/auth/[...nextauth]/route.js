@@ -82,7 +82,7 @@ export const authOptions = {
   },
   session: {
     strategy: "jwt",
-    expires:30 * 60 * 1000
+    expires:60 * 60 * 1000
   },
   theme: {
     colorScheme: "light",
