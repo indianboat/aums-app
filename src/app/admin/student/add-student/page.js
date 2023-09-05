@@ -15,8 +15,6 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const AdminAddStudent = () => {
 
-  const router = useRouter();
-
   const { data: session } = useSession();
 
   if(session == undefined){
