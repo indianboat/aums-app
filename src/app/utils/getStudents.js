@@ -1,5 +1,5 @@
 export default async function getStudents() {
-  const res = await fetch("https://aums.vercel.app/api/students", { cache:"no-store", next : {revalidate : 1} });
+  const res = await fetch("https://aums.vercel.app/api/students", { cache:"no-cache" });
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
