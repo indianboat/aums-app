@@ -1,5 +1,5 @@
-export default async function getStudents() {
-  const res = await fetch("http://localhost:3000/api/students", { cache:"no-cache" });
+export default async function getStudentById(id) {
+  const res = await fetch(`http://localhost:3000/api/students/${id}`, { cache:"no-cache" });
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

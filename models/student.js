@@ -8,6 +8,19 @@ const studentSchema = new mongoose.Schema({
   mobile:String,
   password:String,
   course:String,
+  batch:String,
+  gender:String,
+  DOB:Date,
+  religion:String,
+  blood_group:String,
+  semester:Number,
+  nationality:String,
+  country:String,
+  adhar_card:Number,
+  pancard:String,
+  address:String,
+  img:String,
+  sign:String,
   role:{type:String, default:"student"},
   isActive:{type:Boolean, default:false}
 }, { timestamps: true });
@@ -15,4 +28,4 @@ const studentSchema = new mongoose.Schema({
 mongoose.models = {};
 const Student = mongoose.model("students", studentSchema);
 
-export default Student;
+export default Student; 

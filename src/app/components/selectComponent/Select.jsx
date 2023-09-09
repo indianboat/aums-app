@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Select = ({ options, onSelect, className, placeholder, id  }) => {
+const Select = ({ options, onSelect, className, placeholder, id, value  }) => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(value);
   const containerRef = useRef(null);
 
   const toggleSelect = () => {
@@ -44,7 +44,7 @@ const Select = ({ options, onSelect, className, placeholder, id  }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`absolute mt-2 p-3 overflow-auto bg-[#eaeef0] dark:bg-[#141417] w-48 lg:h-48 md:h-44 sm:40 h-36 z-30 rounded-xl shadow-lg ${className}`}
+            className={`absolute mt-2 p-3 overflow-auto bg-[#eaeef0] dark:bg-[#141417] w-48 lg:h-fit md:h-44 sm:40 h-36 z-30 rounded-xl shadow-lg ${className}`}
           >
             {options.map((option, index) => (
               <li

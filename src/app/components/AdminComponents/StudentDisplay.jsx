@@ -1,8 +1,6 @@
 "use client";
 
-import { PiEye } from "react-icons/pi";
 import { CiEdit, CiTrash } from "react-icons/ci";
-import Link from 'next/link';
 import Button from '@/app/components/ButtonComponent/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from '@/app/components/ModalComponent/Modal';
@@ -10,31 +8,31 @@ import { useState } from "react";
 import Spinner from "../SpinnerComponent/Spinner";
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from "next/navigation";
-
+import Link from "next/link";
 
 const StudentDisplay = ({ students }) => {
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [id, setId] = useState(null);
 
-  const openModal = (ind) => {
-    setIsModalOpen(true);
+  const openDeleteModal = (ind) => {
+    setIsDeleteModalOpen(true);
     setId(ind);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
   };
 
-  const deleteStudent = async () =>{
+  const deleteStudent = async () => {
     setLoading(true);
 
     const res = await fetch(`/api/students/${id}`, {
-      method:"DELETE",
-      headers:{
-        "Content-Type":"application/json"
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
       },
     });
 
@@ -43,7 +41,7 @@ const StudentDisplay = ({ students }) => {
       setLoading(false);
       toast.success("Student Deleted !");
       router.refresh();
-      
+
     }
     else {
       toast.error(res.error, { duration: 2500 });
@@ -55,7 +53,7 @@ const StudentDisplay = ({ students }) => {
 
   return (
     <>
-    <Toaster/>
+      <Toaster />
       <AnimatePresence>
         <motion.div className="overflow-auto mx-auto">
           {
@@ -97,26 +95,29 @@ const StudentDisplay = ({ students }) => {
                           </td>
                           <td className="py-2 px-4">
                             <div className="flex items-center gap-x-3">
-                              <Link title="View" href="#!"><PiEye size={24} /></Link>
-                              <Button className="rounded-full p-2" title="Edit"><CiEdit className="text-gray-800 dark:text-gray-200" size={24} /></Button>
-                              <Button onClick={() => { openModal(student._id) }} title="Delete" className="rounded-full p-2"><CiTrash size={24} className='text-rose-800 dark:text-rose-500' /></Button>
+                              <Link href={`/admin/student/manage-student/${student._id}`} className="rounded-full p-2" title="Edit">
+                                <CiEdit className="text-gray-800 dark:text-gray-200" size={24} />
+                              </Link>
+                              <Button onClick={() => { openDeleteModal(student._id) }} title="Delete" className="rounded-full p-2">
+                                <CiTrash size={24} className='text-rose-800 dark:text-rose-500' />
+                              </Button>
                             </div>
                           </td>
                         </motion.tr>
-
                       )
                     })
                   }
                 </tbody>
               </motion.table>
           }
-          <Modal isOpen={isModalOpen}>
+          {/* DELETE MODAL */}
+          <Modal isOpen={isDeleteModalOpen}>
             <h2 className="text-lg font-semibold mb-4">Are you sure ?</h2>
             <p>Do you want to delete this student?</p>
             <div className="flex items-center gap-x-4 justify-end">
               <Button
                 className="mt-4 px-4 py-2 border-2 hover:border-blue-500 hover:text-blue-500 dark:hover:text-blue-500 text-gray-700 dark:text-gray-300 rounded-full"
-                onClick={closeModal}
+                onClick={closeDeleteModal}
               >
                 Cancel
               </Button>
@@ -129,6 +130,7 @@ const StudentDisplay = ({ students }) => {
               </Button>
             </div>
           </Modal>
+
         </motion.div>
       </AnimatePresence>
     </>
