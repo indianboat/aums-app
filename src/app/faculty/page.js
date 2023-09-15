@@ -67,9 +67,9 @@ const FacultyLogin = () => {
         <form method="POST" onSubmit={formik.handleSubmit} className="shadow-xl lg:p-12 md:p-10 sm:p-8 p-4 rounded-3xl lg:w-3/6 md:w-4/6 sm:w-full w-full">
           <legend className="mt-2 mb-6 text-gray-800 dark:text-gray-200 text-center font-bold text-3xl">Sign in as Faculty</legend>
 
-          <Input icon={<HiOutlineMail strokeWidth={1} size={20}/>} type="email" className="w-full" label="Faculty Email Id" id="email" name="email" placeholder="Faculty email Id" {...formik.getFieldProps("email")} required />
+          <Input icon={<HiOutlineMail strokeWidth={1} size={20}/>} type="email" className="w-full mb-4" label="Faculty Email Id" id="email" name="email" placeholder="Faculty email Id" {...formik.getFieldProps("email")} required />
 
-          <Input minLength={8} icon={<CiLock size={20}/>} type="password" className="w-full" label="Faculty Password" id="password" name="password" placeholder="Faculty Password" {...formik.getFieldProps("password")} required />
+          <Input minLength={8} icon={<CiLock size={20}/>} type="password" className="w-full mb-4" label="Faculty Password" id="password" name="password" placeholder="Faculty Password" {...formik.getFieldProps("password")} required />
 
           <Button type="submit" disabled={loading ? true : false} className="bg-neutral-950 my-8 w-full disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-x-2 shadow-dark-btn">{loading ? <Spinner /> : "Login"}</Button>
           <p className="flex w-full text-gray-600 dark:text-gray-400 text-sm justify-center mt-8 gap-x-2">For student login <Link className="text-blue-500 underline" href="/student">Login</Link></p>

@@ -16,15 +16,15 @@ const StudentDrawer = ({handleLinkClick, handleSignout}) => {
   const resultList = [
     {
       name:"Internal Result",
-      link:"/student/internal-result"
+      link:"/student/result/internal-result"
     },
     {
       name:"External Result",
-      link:"/student/external-result"
+      link:"/student/result/external-result"
     },
     {
-      name:"All Semester Result",
-      link:"/student/all-semester-result"
+      name:"Consolidated Result",
+      link:"/student/result/all-semester-result"
     }
   ];
 
@@ -42,7 +42,7 @@ const StudentDrawer = ({handleLinkClick, handleSignout}) => {
 
   return (
     <>
-      <div className="border h-auto border-red-400 p-3">
+      <div className="border h-auto border-red-400 p-3 relative w-full">
         <ul className="border flex flex-col gap-3 w-full">
           <li className="border flex"><Link onClick={handleLinkClick} href="/student" className="border text-[#696E76] dark:text-neutral-300 hover:text-primary dark:hover:text-primary hover:bg-slate-50 dark:hover:bg-neutral-950 flex items-center gap-x-4 w-full px-4 py-2 rounded-lg"><RxDashboard /> Home</Link></li>
           <li className="border flex">

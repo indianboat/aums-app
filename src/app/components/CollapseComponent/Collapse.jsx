@@ -28,13 +28,13 @@ const Collapse = ({children, list=[], onClick}) => {
           transition={{ duration:0.2 }}
           className="border"
           >
-            <div className="px-4 py-2 bg-slate-50 rounded-xl dark:bg-neutral-900">
+            <div className="px-4 py-2 bg-slate-50 rounded-xl dark:bg-neutral-900 mt-1">
               <ul className="flex flex-col gap-y-2">
                 {
                   list.map((item, index)=>{
                     return (
                      <li key={index} className="flex w-full">
-                        <Link className="text-sm font-normal hover:text-primary px-8 py-1" href={`${item.link}`} onClick={onClick}>{item.name}</Link>
+                        <Link className="text-sm font-normal hover:text-primary px-4 py-1" href={`${item.link}`} onClick={onClick}>{item.name}</Link>
                       </li>
                     )
                   })
