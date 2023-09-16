@@ -50,20 +50,37 @@ const Navbar = () => {
                 className="p-[8px] rounded-xl bg-[#F2F2F2] dark:bg-[#16181A] shadow-lg duration-[0.3s] transition-all relative hover:shadow-none hover:translate-y-[1px] lg:hidden md:flex sm:flex flex"
                 onClick={drawerHandler}
               >
-                <LuMenu size={20} className="text-[#2C3E50] dark:text-white" /> 
+                <LuMenu size={20} className="text-[#2C3E50] dark:text-white" />
               </button>
               <Link href={"/"} className="text-2xl font-bold">UMS</Link>
             </div>
-            
-            {status === 'loading' ? null : session? null : <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
+
+            {status === 'loading' ? null : session ? null : <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
               <Link href={"/"} className="text-md font-medium">Home</Link>
               <Link href={"/admin"} className="text-md font-medium">Admin</Link>
               <Link href={"/faculty"} className="text-md font-medium">Faculty</Link>
               <Link href={"/student"} className="text-md font-medium">Student</Link>
             </div>}
-            
+
+            <div className="">
+              <svg
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M18.707 8.796c0 1.256.332 1.997 1.063 2.85.553.628.73 1.435.73 2.31 0 .874-.287 1.704-.863 2.378a4.537 4.537 0 01-2.9 1.413c-1.571.134-3.143.247-4.736.247-1.595 0-3.166-.068-4.737-.247a4.532 4.532 0 01-2.9-1.413 3.616 3.616 0 01-.864-2.378c0-.875.178-1.682.73-2.31.754-.854 1.064-1.594 1.064-2.85V8.37c0-1.682.42-2.781 1.283-3.858C7.861 2.942 9.919 2 11.956 2h.09c2.08 0 4.204.987 5.466 2.625.82 1.054 1.195 2.108 1.195 3.745v.426zM9.074 20.061c0-.504.462-.734.89-.833.5-.106 3.545-.106 4.045 0 .428.099.89.33.89.833-.025.48-.306.904-.695 1.174a3.635 3.635 0 01-1.713.731 3.795 3.795 0 01-1.008 0 3.618 3.618 0 01-1.714-.732c-.39-.269-.67-.694-.695-1.173z"
+                  fill="#000"
+                />
+              </svg>
+            </div>
+
             <div className="flex items-center h-full gap-x-2">
-              {session && <Dropdown handleSignout={handleSignout} profileLink={!session? null : session?.user?.role === "admin" ? "/admin/profile" : session?.user?.role === "student" ? "/student/profile" : "/faculty/profile" } userName={!session ? "user_name" : session?.user?.name} />}
+              {session && <Dropdown handleSignout={handleSignout} profileLink={!session ? null : session?.user?.role === "admin" ? "/admin/profile" : session?.user?.role === "student" ? "/student/profile" : "/faculty/profile"} userName={!session ? "user_name" : session?.user?.name} />}
             </div>
           </div>
         </div>

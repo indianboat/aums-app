@@ -5,9 +5,6 @@ import "./globals.scss";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import NextAuthSessionProvider from "./components/SessionProvider/NextAuthSessionProvider";
-import { Suspense } from "react";
-import Loading from "./components/LoadingComponent/Loading";
-
 
 const poppins = Poppins({
   subsets: ["latin"], weight: [
@@ -33,11 +30,9 @@ export default function RootLayout({ children }) {
         />
         <Provider>
           <NextAuthSessionProvider>
-            <Suspense fallback={<Loading />}>
             <Navbar />
               {children}
             <Footer />
-            </Suspense>
           </NextAuthSessionProvider>
         </Provider>
       </body>

@@ -5,17 +5,16 @@ import SubjectCard from '@/app/components/CardComponent/SubjectCard';
 import Loading from '@/app/components/LoadingComponent/Loading';
 import StudentDrawer from '@/app/components/NavbarComponent/StudentDrawer';
 import Spinner from '@/app/components/SpinnerComponent/Spinner';
-import Table from '@/app/components/TableComponent/Table';
-import Select from '@/app/components/selectComponent/Select';
 import { useFormik } from 'formik';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
+
 const StudentCourseRegistration = () => {
 
-  const mm = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const mm = ["Jan", "Feb", "Mar", "Aprl", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 
   const { data: session } = useSession({
@@ -26,7 +25,6 @@ const StudentCourseRegistration = () => {
 
   const [loading, setLoading] = useState(false);
   const [studentInfo, setStudentInfo] = useState(null);
-  const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
     async function getStudent(id) {
@@ -53,28 +51,46 @@ const StudentCourseRegistration = () => {
     onSubmit
   });
 
-  const maxSubjects = 6;
-  const cardData = [
-    { id: 0, subjectName: 'Mathematices', subjectCode: '21MCA364', subjectType: "core", credits: 3 },
-    { id: 1, subjectName: 'Physics', subjectCode: '21MCA745', subjectType: "core", credits: 3 },
-    { id: 2, subjectName: 'Chemistry', subjectCode: '21MCA128', subjectType: "core", credits: 3 },
-    { id: 3, subjectName: 'Computer Science', subjectCode: '21MCA685', subjectType: "core", credits: 3 },
-    { id: 4, subjectName: 'English Litrature', subjectCode: '21MCA478', subjectType: "core", credits: 3 },
-    { id: 5, subjectName: 'Home Science', subjectCode: '21MCA749', subjectType: "elective", credits: 3 },
-    { id: 6, subjectName: 'Physical Education', subjectCode: '21MCA445', subjectType: "elective", credits: 3 },
+  const subjects = [
+    { id: 1, subjectName: 'Mathematices', subjectCode: '21MCA364', subjectType: "elective", credits: 3 },
+    { id: 2, subjectName: 'Physics', subjectCode: '21MCA745', subjectType: "core", credits: 3 },
+    { id: 3, subjectName: 'Chemistry', subjectCode: '21MCA128', subjectType: "core", credits: 3 },
+    { id: 4, subjectName: 'Computer Science', subjectCode: '21MCA685', subjectType: "elective", credits: 3 },
+    { id: 5, subjectName: 'English Litrature', subjectCode: '21MCA478', subjectType: "core", credits: 3 },
+    { id: 6, subjectName: 'Home Science', subjectCode: '21MCA749', subjectType: "elective", credits: 3 },
+    { id: 7, subjectName: 'Physical Education', subjectCode: '21MCA445', subjectType: "elective", credits: 3 },
+    { id: 8, subjectName: 'Biology', subjectCode: '21MCA7589', subjectType: "elective", credits: 3 },
   ];
 
-  const handleCardToggle = (card, isSelected) => {
-    if (isSelected) {
-      if (selectedCards.length < maxSubjects) {
-        setSelectedCards([...selectedCards, card]);
-      }
-    } else {
-      setSelectedCards(selectedCards.filter((selectedCard) => selectedCard.id !== card.id));
-    }
-  }
+  const coreSubjects = subjects.filter((subject) => subject.subjectType === 'core');
+  const electiveSubjects = subjects.filter((subject) => subject.subjectType === 'elective');
 
-  console.log(selectedCards);
+  const [selectedSubjects, setSelectedSubjects] = useState(coreSubjects); // Initialize with 5 core subjects
+  const [selectedElectives, setSelectedElectives] = useState([]);
+  const maxElectiveSelection = 2;
+
+  const toggleSubject = (subject) => {
+    if (subject.subjectType === 'core') {
+      // Core subjects should always remain selected
+      return;
+    }
+
+    const isAlreadySelected = selectedElectives.some((elec) => elec.id === subject.id);
+
+    if (isAlreadySelected) {
+      // Deselect the elective if it's already selected
+      setSelectedElectives((prev) => prev.filter((elec) => elec.id !== subject.id));
+    } else if (selectedElectives.length < maxElectiveSelection) {
+      // Select the elective if less than 2 electives are selected
+      setSelectedElectives((prev) => [...prev, subject]);
+    } else if (selectedElectives.length === maxElectiveSelection) {
+      // Deselect one of the selected electives and select the new one
+      setSelectedElectives((prev) => [...prev.slice(1), subject]);
+    }
+  };
+
+  // console.log(selectedSubjects);
+  // console.log(selectedElectives);
 
   async function onSubmit(values) {
     console.log(values);
@@ -95,6 +111,9 @@ const StudentCourseRegistration = () => {
     // else {
     //   setLoading(false);
     // }
+  }
+  const resetElectives = ()=>{
+    setSelectedElectives([]);
   }
 
 
@@ -122,21 +141,40 @@ const StudentCourseRegistration = () => {
             </div>
             <form method="post" className='mt-4' onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-y-4'>
-                <h2>Select 6 courses</h2>
+                <h2 className='px-3 py-2 rounded-lg shadow text-lg font-semibold'>Core Subjects</h2>
                 <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 border">
-                  {cardData.map((card) => (
+                  {coreSubjects.map((subject) => (
                     <SubjectCard
-                      key={card.id}
-                      cardData={card}
-                      isSelected={selectedCards.some((selectedCard) => selectedCard.id === card.id)}
-                      onToggle={handleCardToggle}
-                      disabled={selectedCards.length >= maxSubjects && !selectedCards.includes(card)}
+                      key={subject.id}
+                      subject={subject}
+                      isSelected={
+                        selectedSubjects.some((selectedSubject) => selectedSubject.id === subject.id) ||
+                        selectedElectives.some((elec) => elec.id === subject.id)
+                      }
+                      onSelect={() => toggleSubject(subject)}
                     />
                   ))}
                 </div>
-                <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>Note: Students have to select only 6 subjects including core subjects</p>
+                <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>Note: These are the core subjects that is mandatory.</p>
+
+                <h2 className='px-3 py-2 rounded-lg shadow text-lg font-semibold'>Select any 2 Electives</h2>
+                <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 border">
+                  {electiveSubjects.map((subject) => (
+                    <SubjectCard
+                      key={subject.id}
+                      subject={subject}
+                      isSelected={
+                        selectedSubjects.some((selectedSubject) => selectedSubject.id === subject.id) ||
+                        selectedElectives.some((elec) => elec.id === subject.id)
+                      }
+                      onSelect={() => toggleSubject(subject)}
+                    />
+                  ))}
+                </div>
+                <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>Note: Only 2 electives must be selected.</p>
               </div>
-              <div className="mt-4">
+              <div className="mt-4 flex gap-4">
+                <Button type='reset' onClick={resetElectives} className="text-primary border-2 border-blue-500">Reset</Button>
                 <Button type='submit' className="bg-primary">{loading ? <Spinner /> : "Register"}</Button>
               </div>
             </form>
