@@ -15,7 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const StudentCourseRegistration = () => {
 
-  const mm = ["Jan", "Feb", "Mar", "Aprl", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const mm = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 
   const { data: session } = useSession({
@@ -134,7 +134,7 @@ const StudentCourseRegistration = () => {
                     />
                   ))}
                 </div>
-                <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>Note: Students have to select only 6 subjects including core subjects.</p>
+                <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>Note: Students have to select only 6 subjects including core subjects</p>
               </div>
               <div className="mt-4">
                 <Button type='submit' className="bg-primary">{loading ? <Spinner /> : "Register"}</Button>
