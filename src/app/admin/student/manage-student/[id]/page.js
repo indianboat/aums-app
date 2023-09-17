@@ -32,3 +32,5 @@ const AdminEditStudent = async ({ params }) => {
 }
 
 export default AdminEditStudent
+
+// verify semester registration

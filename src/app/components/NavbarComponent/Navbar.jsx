@@ -112,7 +112,7 @@ const Navbar = () => {
             </>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </motion.nav> 
 
       {/* Drawer OVERLAY */}
       <AnimatePresence>

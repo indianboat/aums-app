@@ -40,9 +40,9 @@ export async function PUT(req, { params }){
   try {
     await connectDB();
     const { id } = params;
-    const {fname, lname, email, mobile, password, enrol_num, course, batch, gender, DOB, religion, blood_group, semester, nationality, country, adhar_card, pancard, address, img, sign, role, isActive} = await req.json();
+    const {fname, lname, email, mobile, password, enrol_num, course, batch, gender, DOB, religion, blood_group, nationality, country, adhar_card, pancard, address, img, sign, role, isActive, semesterData, currentSemester} = await req.json();
 
-    const updateStudent = await Student.findByIdAndUpdate({_id : id}, {fname, lname, email, mobile, password, enrol_num, course, batch, gender, DOB, religion, blood_group, semester, nationality, country, adhar_card, pancard, address, img, sign, role, isActive});
+    const updateStudent = await Student.findByIdAndUpdate({_id : id}, {fname, lname, email, mobile, password, enrol_num, course, batch, gender, DOB, religion, blood_group, nationality, country, adhar_card, pancard, address, img, sign, role, semesterData, isActive, currentSemester});
     if(updateStudent){
       return new NextResponse(JSON.stringify("Student Info Updated !"), {status:201});
     }

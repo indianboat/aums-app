@@ -8,22 +8,15 @@ import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 import Loading from "../components/LoadingComponent/Loading";
 import Spinner from "../components/SpinnerComponent/Spinner";
 
 const StudentLogin = () => {
 
-  const {push} = useRouter();
   const [ loading, setLoading ] = useState(false);
   const { status } = useSession();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      push('/student/dashboard'); // Redirect after rendering
-    }
-  }, [status, push]);
 
   const formik = useFormik({
     initialValues: {
@@ -58,7 +51,7 @@ const StudentLogin = () => {
   }
 
   if (status === "loading") {
-    <Loading />
+    return <Loading />;
   }
 
   return (
