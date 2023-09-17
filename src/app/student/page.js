@@ -58,7 +58,7 @@ const StudentLogin = () => {
   }
 
   if (status === "loading") {
-    return <Loading />;
+    <Loading />
   }
 
   return (
