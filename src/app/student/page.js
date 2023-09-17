@@ -53,6 +53,10 @@ const StudentLogin = () => {
   if (status === "loading") {
     return <Loading />;
   }
+  
+  if(status === "authenticated"){
+    redirect("/student/dashboard")
+  }
 
   return (
     <>
