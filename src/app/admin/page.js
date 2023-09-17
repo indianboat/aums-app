@@ -16,7 +16,7 @@ const AdminLogin = () => {
 
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   useEffect(() => {
     if (status === 'authenticated') {
