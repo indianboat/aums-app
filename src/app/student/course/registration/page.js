@@ -117,13 +117,12 @@ const StudentCourseRegistration = () => {
     }
   }
 
-
   const resetElectives = () => {
     setSelectedElectives([]);
   }
 
   if (status === "loading") {
-    return <Loading />;
+    <Loading />
   }
 
   return (

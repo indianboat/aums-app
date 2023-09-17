@@ -4,22 +4,19 @@ import Loading from '@/app/components/LoadingComponent/Loading';
 import StudentDrawer from '@/app/components/NavbarComponent/StudentDrawer'
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 
 const StudentRegistrationTracking = () => {
 
-  const router = useRouter();
-
   const months = ["Jan", "Feb", "Mar", "Aprl", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const [studentInfo, setStudentInfo] = useState(null);
 
-  const { data: session, status} = useSession({
-    onUnauthenticated() {
-      router.push("/student");
-    }
-  });
+  const { data: session, status} = useSession();
+  if(!session){
+    redirect("/student");
+  }
 
   useEffect(() => {
     async function getStudent(id) {
@@ -33,12 +30,8 @@ const StudentRegistrationTracking = () => {
     }
   }, [session]);
 
-  if(!session){
-    redirect("/student");
-  }
-
   if (status === "loading") {
-    return <Loading />;
+    <Loading />
   }
 
   return (
