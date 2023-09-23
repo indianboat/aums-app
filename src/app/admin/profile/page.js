@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const AdminFaculty = () => {
   return (
-    <div>AdminFaculty</div>
+    <>
+      Profile
+    </>
   )
 }
 
-export default AdminFaculty
+export default AdminFaculty;

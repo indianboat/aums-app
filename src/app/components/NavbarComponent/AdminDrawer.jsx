@@ -22,6 +22,10 @@ const AdminDrawer = ({handleLinkClick}) => {
     {
       name:"Manage",
       link:"/admin/student/manage-student"
+    },
+    {
+      name:"Course Verification",
+      link:"/admin/student/course-verification"
     }
   ];
 
