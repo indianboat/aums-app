@@ -15,7 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const AdminAddStudent = () => {
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   if(session == undefined){
     redirect("/admin", "replace");

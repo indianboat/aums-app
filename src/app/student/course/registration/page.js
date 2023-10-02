@@ -16,8 +16,8 @@ const StudentCourseRegistration = () => {
   const mm = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   const { data: session, status } = useSession();
-  if(!session){
-    redirect("/student");
+  if (!session) {
+    redirect("/student", "replace");
   }
 
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,6 @@ const StudentCourseRegistration = () => {
 
   const coreSubjects = subjects.filter((subject) => subject.subjectType === 'core');
   const electiveSubjects = subjects.filter((subject) => subject.subjectType === 'elective');
-
   const [selectedSubjects, setSelectedSubjects] = useState(coreSubjects); // Initialize with 5 core subjects
   const [selectedElectives, setSelectedElectives] = useState([]);
   const maxElectiveSelection = 3;
@@ -139,7 +138,7 @@ const StudentCourseRegistration = () => {
               <h2 className='uppercase'><strong>Roll No:</strong> {studentInfo?.enrol_num}</h2>
               <h2 className='uppercase'><strong>Name:</strong> {studentInfo?.fname} {studentInfo?.lname}</h2>
               <h2 className='uppercase'><strong>Course:</strong> {studentInfo?.course}</h2>
-              <h2 className='uppercase'><strong>Semester:</strong> {studentInfo?.semester}</h2>
+              <h2 className='uppercase'><strong>Semester:</strong> {studentInfo?.currentSemester}</h2>
               <h2 className='uppercase'><strong>Batch:</strong> {mm[new Date(studentInfo?.batch).getMonth()]}_{new Date(studentInfo?.batch).getFullYear()} </h2>
             </div>
             {
@@ -184,27 +183,53 @@ const StudentCourseRegistration = () => {
                       <Button type='submit' className="bg-primary">{loading ? <Spinner /> : "Register"}</Button>
                     </div>
                   </form>
-                </> : studentInfo?.semesterData[0]?.semesterStatus == "verifying" ?
-                  <>
+                </> :
+
+
+                studentInfo?.course === "MCA" && studentInfo?.semesterData.length == 4
+                  ? <div className="mt-4">
+                    <p className='text-xl border p-2 rounded-md bg-rose-200 dark:bg-rose-900 text-rose-700 dark:text-rose-600'>
+                      You are in Last semester of this degree can't proceed further.
+                    </p>
+                  </div>
+
+                  :
+
+                  studentInfo?.course === "BCA" && studentInfo?.semesterData.length == 6 ?
                     <div className="mt-4">
                       <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
-                        You have registered for semester {studentInfo?.currentSemester}.
+                        You are in Last semester of this degree can't proceed further.
                       </p>
                     </div>
-                  </> : studentInfo?.semesterData[0]?.semesterStatus == "on-going" ?
-                    <>
+
+                    :
+
+                    studentInfo?.semesterData[studentInfo?.currentSemester - 1].semesterStatus === "verifying" ?
                       <div className="mt-4">
-                        <p className='text-xl border p-2 rounded-md bg-green-50 dark:bg-green-700 text-green-700 dark:text-green-900'>
-                          You have already registered for semester {studentInfo?.semester}.
+                        <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
+                          You have registered for semester {studentInfo?.currentSemester}.
                         </p>
                       </div>
-                    </>
-                    : studentInfo?.semesterData[0]?.semesterStatus == "done" ?
-                      <div className="mt-4">
-                        <p className='text-xl border p-2 rounded-md bg-red-50 dark:bg-[#310413] text-rose-500 dark:text-rose-700'>
-                          Registration will start soon
-                        </p>
-                      </div> : null
+                      :
+
+                      studentInfo?.semesterData[studentInfo?.currentSemester - 1].semesterStatus === "on-going" ?
+                        <div className="mt-4">
+                          <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
+                            You are currently in on going semester {studentInfo?.currentSemester}.
+                          </p>
+                        </div>
+
+                        :
+
+                        studentInfo?.semesterData[studentInfo?.currentSemester - 1].semesterStatus === "done" ?
+                          <div className="mt-4">
+                            <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
+                              Registration will start soon
+                            </p>
+                          </div>
+                          : null
+                
+                 
             }
           </div>
         </section>
@@ -214,3 +239,25 @@ const StudentCourseRegistration = () => {
 }
 
 export default StudentCourseRegistration
+
+// studentInfo?.semesterData[0]?.semesterStatus == "verifying" ?
+//                   <>
+//                     <div className="mt-4">
+//                       <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
+//                         You have registered for semester {studentInfo?.currentSemester}.
+//                       </p>
+//                     </div>
+//                   </> : studentInfo?.semesterData[0]?.semesterStatus == "on-going" ?
+//                     <>
+//                       <div className="mt-4">
+//                         <p className='text-xl border p-2 rounded-md bg-green-50 dark:bg-green-700 text-green-700 dark:text-green-900'>
+//                           You are currently in on going semester {studentInfo?.currentSemester}.
+//                         </p>
+//                       </div>
+//                     </>
+//                     : studentInfo?.semesterData[0]?.semesterStatus == "done" ?
+//                       <div className="mt-4">
+//                         <p className='text-xl border p-2 rounded-md bg-red-50 dark:bg-[#310413] text-rose-500 dark:text-rose-700'>
+//                           Registration will start soon
+//                         </p>
+//                       </div> : null

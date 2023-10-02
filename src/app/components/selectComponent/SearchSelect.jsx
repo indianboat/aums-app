@@ -5,11 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AiFillCloseCircle } from "react-icons/ai";
 import Input from '../InputComponent/Input';
 
-function SearchSelect({ options, placeholder, clear, onSelect }) {
+function SearchSelect({ options, placeholder, clear, onSelect, value }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedOption, setSelectedOption] = useState(null);
   const containerRef = useRef(null);
 
   const toggleSelect = () => {
@@ -18,13 +17,11 @@ function SearchSelect({ options, placeholder, clear, onSelect }) {
   };
 
   const handleOptionSelect = (option) => {
-    setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);
   };
 
   const handleClear = () => {
-    setSelectedOption(null);
     setSearchTerm('');
     setIsOpen(false);
   };
@@ -48,7 +45,7 @@ function SearchSelect({ options, placeholder, clear, onSelect }) {
           onClick={toggleSelect}
           className="bg-[#eaeef0] dark:bg-[#141417] px-[12px] py-[10px] min-w-40 rounded-xl cursor-pointer"
         >
-          {selectedOption ? selectedOption : placeholder}
+          {value != "" ? value : placeholder}
         </div>
         <AnimatePresence>
           {isOpen && (
@@ -75,7 +72,9 @@ function SearchSelect({ options, placeholder, clear, onSelect }) {
                   .map((option, index) => (
                     <motion.div
                       key={index}
-                      onClick={() => handleOptionSelect(option)}
+                      onClick={()=>{
+                        handleOptionSelect(option)
+                      }}
                       className="w-full p-2 text-left hover:bg-gray-400 rounded-lg dark:hover:bg-neutral-700 cursor-pointer"
                     >
                       {option}
@@ -86,7 +85,7 @@ function SearchSelect({ options, placeholder, clear, onSelect }) {
           )}
         </AnimatePresence>
       </div>
-      {selectedOption && clear == true ? (
+      {value && clear == true ? (
         <div
           className="absolute flex justify-center items-center h-full px-1 top-0 right-0"
         >

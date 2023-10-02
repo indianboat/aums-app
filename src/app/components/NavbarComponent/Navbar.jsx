@@ -11,6 +11,7 @@ import StudentDrawer from "./StudentDrawer";
 import FacultyDrawer from "./FacultyDrawer";
 import Drawer from "./Drawer";
 import Dropdown from "../DropdownComponent/Dropdown";
+import Loading from "../LoadingComponent/Loading";
 
 const Navbar = () => {
 
@@ -55,7 +56,7 @@ const Navbar = () => {
               <Link href={"/"} className="text-2xl font-bold">UMS</Link>
             </div>
 
-            {status === 'loading' ? null : session ? null : <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
+            {status === 'loading' ? <Loading /> : session ? null : <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
               <Link href={"/"} className="text-md font-medium">Home</Link>
               <Link href={"/admin"} className="text-md font-medium">Admin</Link>
               <Link href={"/faculty"} className="text-md font-medium">Faculty</Link>

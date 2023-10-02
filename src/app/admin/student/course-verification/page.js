@@ -6,16 +6,24 @@ import Spinner from '@/app/components/SpinnerComponent/Spinner';
 import SearchSelect from '@/app/components/selectComponent/SearchSelect';
 import Select from '@/app/components/selectComponent/Select';
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminStudentCourseVerification = () => {
 
+  const { data: session } = useSession();
+  if(session == undefined){
+    redirect("/admin", "replace");
+  }
+
   const [allStudents, setAllStudents] = useState([]);
+  const [displayStudents, setDisplayStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const [batchOptions, setBatchOptions] = useState([]);
-  // const [selectedBatchOption, setSelectedBatchOption] = useState(null);
+  const [selectedBatchOption, setSelectedBatchOption] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -28,30 +36,33 @@ const AdminStudentCourseVerification = () => {
   const handleCourse = (selectedOption) => {
     formik.values.course = selectedOption;
     if (selectedOption === "MCA") {
-      handleReset();
       setBatchOptions(["2021-23", "2022-24", "2023-25"]);
     }
     else if (selectedOption === "BCA") {
-      handleReset();
       setBatchOptions(["2021-24", "2022-25", "2023-26"]);
+    }
+
+    if (formik.values.course === "MCA") {
+      handleReset();
+    }
+    else if (formik.values.course === "BCA") {
+      handleReset();
     }
   }
 
   const handleBatch = (selectedOption) => {
+    setSelectedBatchOption(selectedOption);
     formik.values.batch = selectedOption;
-    // console.log("page selected: ", selectedOption);
-    // console.log("page: ", formik.values.batch);
-    // setSelectedBatchOption(selectedOption);
   }
 
   const handleReset = () => {
-    // setSelectedBatchOption(null);
-    formik.values.batch = null;
-    console.log(formik.values.batch);
+    formik.values.batch = "";
+    setSelectedBatchOption("");
   }
 
   async function onSubmit(values) {
     setLoading(true);
+    setDisplayStudents([]);
 
     let url = '';
 
@@ -75,17 +86,31 @@ const AdminStudentCourseVerification = () => {
       setMsg("No data found !");
     }
     else {
+      setAllStudents(data);
       setMsg("");
     }
-    setAllStudents(data);
   };
 
-  const handleVerification = (id) => {
-    console.log(id);
+
+  const handleVerification = async (id, semData) => {
+    // console.log(id);
+    // console.log(semesterData);
+    // console.log(semesterData.semester);
+
+    const newSemesterData = {...semData, semesterStatus: "on-going"};
+    // console.log(newSemesterData);
+
+    const res = await fetch(`/api/students/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({semesterData:newSemesterData})
+    });
+
+    console.log(res);
+
   }
-
-  console.log(formik.values);
-
 
   return (
     <>
@@ -110,11 +135,11 @@ const AdminStudentCourseVerification = () => {
                 {/* <div className="flex flex-col gap-y-1">
                   <label htmlFor='course'>Select Batch</label>
                   <Select placeholder="Select batch" onSelect={handleBatch} options={batchOptions} id="batch" name="batch" {...formik.getFieldProps("batch")} />
-                </div> */} 
+                </div>  */}
 
                 <div className="flex flex-col gap-y-1">
                   <label htmlFor='course'>Select Batch</label>
-                  <SearchSelect options={batchOptions} onSelect={handleBatch} {...formik.getFieldProps("batch")} placeholder="Select batch" />
+                  <SearchSelect options={batchOptions} onSelect={handleBatch} value={selectedBatchOption} placeholder="Select batch" name="batch" {...formik.getFieldProps("batch")} />
                 </div>
               </div>
 
@@ -152,7 +177,25 @@ const AdminStudentCourseVerification = () => {
                               <td className='py-2 px-4 uppercase'>{student.course}</td>
                               <td className='py-2 px-4 uppercase'>{student.currentSemester}</td>
                               <td className='py-2 px-4 capitalize'>No</td>
-                              <td className='py-2 px-4 capitalize'><Button onClick={() => { handleVerification(student._id) }} className="bg-[#F5F2E2] text-[#CC9500] dark:text-[#CC930C] dark:bg-[#2D2819]">Verify</Button></td>
+                              <td className='py-2 px-4 capitalize'>
+                                {
+                                  student.semesterData.length <= 0 ? <span key={index} className='bg-[#ffc2c2] text-[#9b2f2f] dark:text-[#e69c9c] dark:bg-[#6d2f2f] px-4 py-2 rounded-2xl flex justify-center items-center cursor-not-allowed select-none'>Not Registered</span> :
+                                    student.semesterData.map((sem, ind) => {
+                                      if (sem.semesterStatus === "verifying") { // on-going || verifying || done || not-registered
+                                        return (<Button key={ind} onClick={() => { handleVerification(student._id, sem) }} className="bg-[#d1d6ff] text-[#4950b3] dark:text-[#a2a7f3] dark:bg-[#2c3b7c]">Verify</Button>)
+                                      }
+                                      else if (sem.semesterStatus === "on-going") {
+                                        return <span key={ind} className='bg-[#F5F2E2] text-[#CC9500] dark:text-[#CC930C] dark:bg-[#2D2819] px-4 py-2 rounded-2xl flex justify-center items-center'>On-going</span>
+                                      }
+                                      else if (sem.semesterStatus === "done") {
+                                        return <span key={ind} className='bg-[#6ee488] text-[#15411c] dark:text-[#4aad73] dark:bg-[#19442b] px-4 py-2 rounded-2xl flex justify-center items-center'>done</span>
+                                      }
+                                      else if (sem.semesterStatus === "not-registered") {
+                                        return <span key={ind} className='bg-[#F5F2E2] text-[#CC9500] dark:text-[#CC930C] dark:bg-[#2D2819] px-4 py-2 rounded-2xl flex justify-center items-center'>Not Registered</span>
+                                      }
+                                    })
+                                }
+                              </td>
                             </tr>
                           )
                         })

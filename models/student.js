@@ -11,10 +11,6 @@ const studentSchema = new mongoose.Schema({
   batch: String,
   currentSemester:{type:Number, default:1},
   semesterData: [],
-  // isFeesPaid:[{
-  //   semester:Number,
-  //   paid:{type:Boolean, default:false}
-  // }],
   gender: String,
   DOB: Date,
   religion: String,
