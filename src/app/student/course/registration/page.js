@@ -189,7 +189,7 @@ const StudentCourseRegistration = () => {
                 studentInfo?.course === "MCA" && studentInfo?.semesterData.length == 4
                   ? <div className="mt-4">
                     <p className='text-xl border p-2 rounded-md bg-rose-200 dark:bg-rose-900 text-rose-700 dark:text-rose-600'>
-                      You are in Last semester of this degree can't proceed further.
+                      You are in Last semester of this degree can&apos;t proceed further.
                     </p>
                   </div>
 
@@ -198,7 +198,7 @@ const StudentCourseRegistration = () => {
                   studentInfo?.course === "BCA" && studentInfo?.semesterData.length == 6 ?
                     <div className="mt-4">
                       <p className='text-xl border p-2 rounded-md bg-green-200 dark:bg-green-900 text-green-700 dark:text-green-600'>
-                        You are in Last semester of this degree can't proceed further.
+                        You are in Last semester of this degree can&apos;t proceed further.
                       </p>
                     </div>
 
