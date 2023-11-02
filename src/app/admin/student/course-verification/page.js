@@ -19,7 +19,6 @@ const AdminStudentCourseVerification = () => {
   }
 
   const [allStudents, setAllStudents] = useState([]);
-  const [displayStudents, setDisplayStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const [batchOptions, setBatchOptions] = useState([]);
@@ -62,7 +61,7 @@ const AdminStudentCourseVerification = () => {
 
   async function onSubmit(values) {
     setLoading(true);
-    setDisplayStudents([]);
+    setAllStudents([]); // fixed displaying data after changing course still......
 
     let url = '';
 
@@ -109,7 +108,6 @@ const AdminStudentCourseVerification = () => {
     });
 
     console.log(res);
-
   }
 
   return (

@@ -1,7 +1,7 @@
 import FacultyDrawer from '@/app/components/NavbarComponent/FacultyDrawer'
 import React from 'react'
 
-const FacultyResultUpload = () => {
+const FacultySettings = () => {
   return (
     <>
       <div className="2xl:container mx-auto flex flex-row w-full h-auto border">
@@ -10,7 +10,7 @@ const FacultyResultUpload = () => {
         </aside>
         <section className="2xl:container mx-auto border border-rose-800 w-full p-6 rounded-2xl shadow-lg">
           <div className="border">
-            <h1 className="text-md text-neutral-700 dark:text-neutral-300 font-bold">Upload Results</h1>
+            <h1 className="text-md text-neutral-700 dark:text-neutral-300 font-bold">Settings</h1>
           </div>
         </section>
       </div>
@@ -18,4 +18,4 @@ const FacultyResultUpload = () => {
   )
 }
 
-export default FacultyResultUpload
+export default FacultySettings

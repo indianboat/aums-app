@@ -12,6 +12,7 @@ import FacultyDrawer from "./FacultyDrawer";
 import Drawer from "./Drawer";
 import Dropdown from "../DropdownComponent/Dropdown";
 import Loading from "../LoadingComponent/Loading";
+import ButtonGroup from "../ButtonComponent/ButtonGroup";
 
 const Navbar = () => {
 
@@ -56,14 +57,22 @@ const Navbar = () => {
               <Link href={"/"} className="text-2xl font-bold">UMS</Link>
             </div>
 
-            {status === 'loading' ? <Loading /> : session ? null : <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
-              <Link href={"/"} className="text-md font-medium">Home</Link>
-              <Link href={"/admin"} className="text-md font-medium">Admin</Link>
-              <Link href={"/faculty"} className="text-md font-medium">Faculty</Link>
-              <Link href={"/student"} className="text-md font-medium">Student</Link>
-            </div>}
+            {status === 'loading' ? <Loading /> : session ? null :
+              <>
+                <div className="lg:flex md:flex sm:hidden hidden items-center justify-between gap-6 border">
+                  <Link href={"/"} className="text-md font-medium">Home</Link>
+                  <Link href={"/admin"} className="text-md font-medium">Admin</Link>
+                  <Link href={"/faculty"} className="text-md font-medium">Faculty</Link>
+                  <Link href={"/student"} className="text-md font-medium">Student</Link>
+                </div>
 
-            <div className="">
+                <div className="lg:flex md:flex sm:hidden hidden border">
+                  <ButtonGroup className="flex" />
+                </div>
+              </>
+            }
+
+            {/* <div className="">
               <svg
                 width={24}
                 height={24}
@@ -78,11 +87,14 @@ const Navbar = () => {
                   fill="#000"
                 />
               </svg>
-            </div>
+            </div> */}
+
+
 
             <div className="flex items-center h-full gap-x-2">
               {session && <Dropdown handleSignout={handleSignout} profileLink={!session ? null : session?.user?.role === "admin" ? "/admin/profile" : session?.user?.role === "student" ? "/student/profile" : "/faculty/profile"} userName={!session ? "user_name" : session?.user?.name} />}
             </div>
+
           </div>
         </div>
 
@@ -113,7 +125,7 @@ const Navbar = () => {
             </>
           )}
         </AnimatePresence>
-      </motion.nav> 
+      </motion.nav>
 
       {/* Drawer OVERLAY */}
       <AnimatePresence>
